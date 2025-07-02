@@ -1,0 +1,16 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Banco de dados local
+escola.db

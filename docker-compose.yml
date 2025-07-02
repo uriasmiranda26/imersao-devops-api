@@ -1,0 +1,23 @@
+# Especifica a versão do formato do arquivo Docker Compose. '3.8' é uma versão moderna e recomendada.
+#version: '3.8'
+
+# Define os serviços (contêineres) que compõem a sua aplicação.
+services:
+  # Define o serviço da nossa API. Você pode nomeá-lo como quiser.
+  api:
+    # Instrui o Docker Compose a construir a imagem a partir do Dockerfile localizado no diretório atual ('.').
+    build: .
+    # Define um nome personalizado para o contêiner, facilitando a sua identificação.
+    container_name: imersao_devops_api
+    # Mapeia as portas. A porta 8000 da sua máquina (host) será redirecionada para a porta 8000 do contêiner.
+    # Formato: "HOST:CONTAINER"
+    ports:
+      - "8000:8000"
+    # Monta volumes. Isso é útil para desenvolvimento, pois espelha o código do seu computador para dentro do contêiner.
+    # Qualquer alteração no código local será refletida instantaneamente no contêiner, permitindo o hot-reload.
+    volumes:
+      - .:/app
+    # Sobrescreve o comando padrão (CMD) do Dockerfile.
+    # Aqui, iniciamos o servidor Uvicorn com a opção --reload, que reinicia o servidor automaticamente
+    # sempre que detecta uma alteração nos arquivos de código, graças ao volume que montamos acima.
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
